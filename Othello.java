@@ -30,6 +30,7 @@ import java.awt.GridBagLayout;
 
 //javac C:\Users\zLx\Desktop\Othello\Othello.java (ctr+b sublime text 2)
 //java C:\Users\zLx\Desktop\Othello\Othello
+//to create jar, go to the othello directory and type : 'jar cvfm Othello.jar manifest.txt *.class images' (on windows cmd)
 
 public class Othello extends JPanel {
 
