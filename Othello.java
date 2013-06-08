@@ -38,7 +38,13 @@ public class Othello extends JPanel {
 	JLabel turnLabel = new JLabel("Turn : Black");
 	JButton buttonArray[][]=new JButton[n][n];
 	String turn = "Black";
+	Boolean blackCanMove = true;
+	Boolean whiteCanMove = true;
+	int totalBlack = 0;
+	int totalWhite = 0;
+	int totalViable = 0;
 	int index = 1;
+	JLabel piecesLabel = new JLabel("Black : " + totalBlack + "| White : " + totalWhite);
 	OthelloPanel otPanel;
 
 	public Othello() {
@@ -46,10 +52,12 @@ public class Othello extends JPanel {
 		otPanel = new OthelloPanel();
 		otPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 		this.add(turnLabel);
+		this.add(piecesLabel);
 		this.add(otPanel);
 		this.displayOthelloPanel();
 		if(index == 1){
 			blackPossibilities();
+			countPieces();
 		}
 	}
 
@@ -110,6 +118,7 @@ public class Othello extends JPanel {
 		           			}
 		           			buttonArray[x][y] = checkButton;
 		           			changeTurn();
+		           			checkWin();
 	           			}
 	           			else{	
 	           				//System.out.println(checkButton.getName() + " = " + x + "," + y);
@@ -208,6 +217,102 @@ public class Othello extends JPanel {
 			blackPossibilities();
 		}
 		index++;
+	}
+
+	private void checkWin() {
+		String status = "None";
+
+		countPieces();
+
+		if(totalBlack + totalWhite == n*n){
+			if(totalBlack > totalWhite) {
+				turnLabel.setText("Black Wins.");
+				disableAll();
+			}
+			else if(totalBlack < totalWhite) {
+				turnLabel.setText("White Wins.");
+				disableAll();
+			}
+			else {
+				turnLabel.setText("It's Effing Draw, Mate.");
+				disableAll();
+			}
+		}
+		else if(totalViable == 0) {
+			if(!blackCanMove && ! whiteCanMove){
+				if(totalBlack > totalWhite) {
+					turnLabel.setText("Black Wins.");
+					disableAll();
+				}
+				else if(totalBlack < totalWhite) {
+					turnLabel.setText("White Wins.");
+					disableAll();
+				}
+				else {
+					turnLabel.setText("It's Effing Draw, Mate.");
+					disableAll();
+				}
+			}
+			else{
+				if(turn == "White"){
+					whiteCanMove = false;
+					turn = "Black";
+					changeTurn();
+					checkWin();
+				}
+				else{
+					blackCanMove = false;
+					turn = "White";
+					changeTurn();
+					checkWin();
+				}
+			}
+		}
+	}
+
+	private void countPieces() {
+		int whi = 0;
+		int bla = 0;
+		int via = 0;
+
+		for(int i=0;i<n;i++){
+			for(int j=0;j<n;j++){
+				if(buttonArray[i][j].getName()=="White"){
+					whi++;
+				}	
+				else if(buttonArray[i][j].getName() == "Black"){
+					bla++;
+				}
+				else if(buttonArray[i][j].getName() == "Viable") {
+					via++;
+				}
+			}
+		}
+
+		totalWhite = whi;
+		totalBlack = bla;
+		totalViable = via;
+
+		piecesLabel.setText("Black : " + totalBlack + " | White : " + totalWhite);
+	}
+
+	private void disableAll(){
+		for(int i=0;i<n;i++){
+			for(int j=0;j<n;j++){
+				buttonArray[i][j].addMouseListener(new MouseAdapter() {
+	           		public void mouseClicked(MouseEvent e) {
+	           		}
+	           	});
+			}
+		}
+	}
+
+	private void enableAll(){
+		for(int i=0;i<n;i++){
+			for(int j=0;j<n;j++){
+				buttonArray[i][j].setEnabled(true);
+			}
+		}
 	}
 
 	private void displayOthelloPanel() {
