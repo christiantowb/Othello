@@ -70,12 +70,12 @@ public class Othello extends JPanel {
 					JButton btnOthello = new OthelloButton(i,j);
 					if(i == 3 && j == 3 || i == 4 && j == 4){
 						btnOthello.setName("White");
-						btnOthello.setIcon(new ImageIcon("White.png"));
+						btnOthello.setIcon(new ImageIcon("images/White.png"));
 						this.add(btnOthello);
 					}
 					else if(i == 3 && j == 4 || i == 4 && j == 3){
 						btnOthello.setName("Black");
-						btnOthello.setIcon(new ImageIcon("Black.png"));
+						btnOthello.setIcon(new ImageIcon("images/Black.png"));
 						this.add(btnOthello);
 					}
 					else{
@@ -104,17 +104,17 @@ public class Othello extends JPanel {
 	           			if(checkButton.getName() == "Viable"){
 		           			if(index % 2 == 0) {
 		           				checkButton.setName("White");
-		           				turnColors(x,y,"White","White.png");
+		           				turnColors(x,y,"White","images/White.png");
 		           				turnLabel.setText("Turn : Black");
 		           				turn = "Black";
-		           				checkButton.setIcon(new ImageIcon("White.png"));
+		           				checkButton.setIcon(new ImageIcon("images/White.png"));
 		           			}
 		           			else{
 		           				checkButton.setName("Black");
-		           				turnColors(x,y,"Black","Black.png");
+		           				turnColors(x,y,"Black","images/Black.png");
 		           				turnLabel.setText("Turn : White");
 		           				turn = "White";
-		           				checkButton.setIcon(new ImageIcon("Black.png"));	
+		           				checkButton.setIcon(new ImageIcon("images/Black.png"));	
 		           			}
 		           			buttonArray[x][y] = checkButton;
 		           			changeTurn();
@@ -445,7 +445,7 @@ public class Othello extends JPanel {
 	    	else if(buttonArray[x][yy-1].getName() == "Empty"){
 	    		if(viable){
 	    			buttonArray[x][yy-1].setName("Viable");
-       				buttonArray[x][yy-1].setIcon(new ImageIcon("Viable.png"));
+       				buttonArray[x][yy-1].setIcon(new ImageIcon("images/Viable.png"));
        				done = true;
 	    		}
 	    		else{
@@ -474,7 +474,7 @@ public class Othello extends JPanel {
 	    	else if(buttonArray[x][yy+1].getName() == "Empty"){
 	    		if(viable){
 	    			buttonArray[x][yy+1].setName("Viable");
-       				buttonArray[x][yy+1].setIcon(new ImageIcon("Viable.png"));
+       				buttonArray[x][yy+1].setIcon(new ImageIcon("images/Viable.png"));
        				done = true;
 	    		}
 	    		else{
@@ -503,7 +503,7 @@ public class Othello extends JPanel {
 	    	else if(buttonArray[xx-1][y].getName() == "Empty"){
 	    		if(viable){
 	    			buttonArray[xx-1][y].setName("Viable");
-       				buttonArray[xx-1][y].setIcon(new ImageIcon("Viable.png"));
+       				buttonArray[xx-1][y].setIcon(new ImageIcon("images/Viable.png"));
        				done = true;
 	    		}
 	    		else{
@@ -532,7 +532,7 @@ public class Othello extends JPanel {
 	    	else if(buttonArray[xx+1][y].getName() == "Empty"){
 	    		if(viable){
 	    			buttonArray[xx+1][y].setName("Viable");
-       				buttonArray[xx+1][y].setIcon(new ImageIcon("Viable.png"));
+       				buttonArray[xx+1][y].setIcon(new ImageIcon("images/Viable.png"));
        				done = true;
 	    		}
 	    		else{
@@ -562,7 +562,7 @@ public class Othello extends JPanel {
 	    	else if(buttonArray[xx-1][yy-1].getName() == "Empty"){
 	    		if(viable){
 	    			buttonArray[xx-1][yy-1].setName("Viable");
-       				buttonArray[xx-1][yy-1].setIcon(new ImageIcon("Viable.png"));
+       				buttonArray[xx-1][yy-1].setIcon(new ImageIcon("images/Viable.png"));
        				done = true;
 	    		}
 	    		else{
@@ -593,7 +593,7 @@ public class Othello extends JPanel {
 	    	else if(buttonArray[xx-1][yy+1].getName() == "Empty"){
 	    		if(viable){
 	    			buttonArray[xx-1][yy+1].setName("Viable");
-       				buttonArray[xx-1][yy+1].setIcon(new ImageIcon("Viable.png"));
+       				buttonArray[xx-1][yy+1].setIcon(new ImageIcon("images/Viable.png"));
        				done = true;
 	    		}
 	    		else{
@@ -624,7 +624,7 @@ public class Othello extends JPanel {
 	    	else if(buttonArray[xx+1][yy-1].getName() == "Empty"){
 	    		if(viable){
 	    			buttonArray[xx+1][yy-1].setName("Viable");
-       				buttonArray[xx+1][yy-1].setIcon(new ImageIcon("Viable.png"));
+       				buttonArray[xx+1][yy-1].setIcon(new ImageIcon("images/Viable.png"));
        				done = true;
 	    		}
 	    		else{
@@ -655,7 +655,7 @@ public class Othello extends JPanel {
 	    	else if(buttonArray[xx+1][yy+1].getName() == "Empty"){
 	    		if(viable){
 	    			buttonArray[xx+1][yy+1].setName("Viable");
-       				buttonArray[xx+1][yy+1].setIcon(new ImageIcon("Viable.png"));
+       				buttonArray[xx+1][yy+1].setIcon(new ImageIcon("images/Viable.png"));
        				done = true;
 	    		}
 	    		else{
