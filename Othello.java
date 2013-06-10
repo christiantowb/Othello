@@ -29,8 +29,8 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-
-
+//java C:\Users\Asus\Documents\GitHub\Othello\Othello.java
+//javac C:\Users\Asus\Documents\GitHub\Othello\Othello.java
 //javac C:\Users\zLx\Desktop\Othello\Othello.java (ctr+b sublime text 2)
 //java C:\Users\zLx\Desktop\Othello\Othello
 //to create jar, go to the othello directory and type : 'jar cvfm Othello.jar manifest.txt *.class images' (on windows cmd)
@@ -81,11 +81,11 @@ public class Othello extends JPanel {
        			}
        			else if(radioButtonNormal.isSelected()){
        				difficulty = "Normal";
-       				globalDepth = 5;
+       				globalDepth = 4;
        			}
        			else if(radioButtonHard.isSelected()){
        				difficulty = "Hard";
-       				globalDepth = 10;
+       				globalDepth = 6;
        			}
 
        			if(radioButtonBlack.isSelected()){
@@ -110,7 +110,7 @@ public class Othello extends JPanel {
 						State bestState;
 						bestState = search(buttonArray, 0, 0, globalDepth, computerColor, turn);
 						//do the state
-						////System.out.println("Best State : " + bestState.getRow() + bestState.getCol());
+						//System.out.println("Best State : " + bestState.getRow() + bestState.getCol());
 						buttonArray[bestState.getRow()][bestState.getCol()].setName(computerColor);
 						lastRow = bestState.getRow();
 						lastCol = bestState.getCol();
@@ -217,7 +217,7 @@ public class Othello extends JPanel {
 	           			checkWin(buttonArray);
            			}
            			else{	
-           				////System.out.println(checkButton.getName() + " = " + x + "," + y);
+           				//System.out.println(checkButton.getName() + " = " + x + "," + y);
            			}
           		}
         	});
@@ -257,6 +257,28 @@ public class Othello extends JPanel {
 		return null;
 	}
 	
+	private int getDepth(int theDepth) {
+		Integer d = new Integer(theDepth);
+		return d - 1;
+	}
+	
+	private State getTheState(State theState) {
+		State newState = new State(0,0,0);
+		for(int i=0;i<30;i++) {
+			if(theState.getValue() == i) {
+				newState.setValue(i);
+			}
+			if(theState.getRow() == i) {
+				newState.setRow(i);
+			}
+			if(theState.getCol() == i) {
+				newState.setCol(i);
+			}
+		}
+		
+		return newState;
+	}
+	
 	private State search(JButton[][] array, int theRow, int theCol, int dep, String aiColor, String currentTurn)
 	{
 		JButton tempArray[][] = new JButton[n][n];
@@ -278,7 +300,7 @@ public class Othello extends JPanel {
 			}
 		}
 		countPieces(tempArray,false);
-		////System.out.println("Black : " + totalBlack + " | White : " + totalWhite);
+		//System.out.println("Black : " + totalBlack + " | White : " + totalWhite);
 	    if (dep == 0 || totalWhite + totalBlack == n * n || blackCanMove == false && whiteCanMove == false){
 	    	State tempState = new State(0,0,0);
 	    	if(aiColor == currentTurn){
@@ -322,7 +344,7 @@ public class Othello extends JPanel {
 	        		blackPossibilities(tempArray);
 	        	}	
 
-	        	////System.out.println("Total Viable (MaxState) : " + totalViable);
+	        	//System.out.println("Total Viable (MaxState) : " + totalViable);
 	        	State maxState = new State(-9999,-9999,-9999);
 	            for(int i=0;i<n;i++){
 					for(int j=0;j<n;j++){ 
@@ -330,33 +352,33 @@ public class Othello extends JPanel {
 		                //make that move on s yielding a state s'
 		                if(tempArray[i][j].getName() == "Viable"){
 			                if(aiColor == "Black"){
-			                	////System.out.println("Condition tempArray before : " + i + "," + j + " = " + tempArray[i][j].getName());
-			                	//////System.out.println("Condition buttonArray before : " + i + "," + j + " = " + buttonArray[i][j].getName());
+			                	//System.out.println("Condition tempArray before : " + i + "," + j + " = " + tempArray[i][j].getName());
+			                	////System.out.println("Condition buttonArray before : " + i + "," + j + " = " + buttonArray[i][j].getName());
 			                	tempArray[i][j].setName("Black");
-			                	////System.out.println("Condition tempArray : " + i + "," + j + " = " + tempArray[i][j].getName());
-			                	//////System.out.println("Condition buttonArray : " + i + "," + j + " = " + buttonArray[i][j].getName());
+			                	//System.out.println("Condition tempArray : " + i + "," + j + " = " + tempArray[i][j].getName());
+			                	////System.out.println("Condition buttonArray : " + i + "," + j + " = " + buttonArray[i][j].getName());
 			                	turnColors(i,j,"Black","images/Black.png",tempArray);
 			                	checkWin(tempArray);
-			    				getState = search(tempArray,i,j,dep-1,aiColor,"White"); //search(s', depth - 1)
+			    				getState = search(tempArray,i,j,getDepth(dep),aiColor,"White"); //search(s', depth - 1)
 			    			}
 			    			else{
-			    				////System.out.println("Condition tempArray before : " + i + "," + j + " = " + tempArray[i][j].getName());
-			                	//////System.out.println("Condition buttonArray before : " + i + "," + j + " = " + buttonArray[i][j].getName());
+			    				//System.out.println("Condition tempArray before : " + i + "," + j + " = " + tempArray[i][j].getName());
+			                	////System.out.println("Condition buttonArray before : " + i + "," + j + " = " + buttonArray[i][j].getName());
 			    				tempArray[i][j].setName("White");
-			    				////System.out.println("Condition tempArray : " + i + "," + j + " = " + tempArray[i][j].getName());
-			                	//////System.out.println("Condition buttonArray : " + i + "," + j + " = " + buttonArray[i][j].getName());
+			    				//System.out.println("Condition tempArray : " + i + "," + j + " = " + tempArray[i][j].getName());
+			                	////System.out.println("Condition buttonArray : " + i + "," + j + " = " + buttonArray[i][j].getName());
 			                	turnColors(i,j,"White","images/White.png",tempArray);
 			                	checkWin(tempArray);
-			    				getState = search(tempArray,i,j,dep-1,aiColor,"Black");//search(s', depth - 1)
+			    				getState = search(tempArray,i,j,getDepth(dep),aiColor,"Black");//search(s', depth - 1)
 			    			}
 
-			    			////System.out.println("MaxState : " + maxState.getValue() + " | GetState : " + getState.getValue() + " | Depth : " + depth);
+			    			//System.out.println("MaxState : " + maxState.getValue() + " | GetState : " + getState.getValue() + " | Depth : " + dep);
 			    			if(getState.getValue() > maxState.getValue()){
-			    				maxState.setValue(getState.getValue());
-			    				maxState.setRow(getState.getRow());
-			    				maxState.setCol(getState.getCol());
+			    				maxState.setValue(getTheState(getState).getValue());
+								maxState.setRow(i);
+								maxState.setCol(j);
 			    			}
-			    			////System.out.println("Rolling back .. i : " + i + ", j : " + j);
+			    			//System.out.println("Rolling back .. i : " + i + ", j : " + j);
 			    			for(int x=0;x<n;x++) {
 								for(int y=0;y<n;y++){
 									tempArray[x][y] = new OthelloButton(x,y);
@@ -369,8 +391,8 @@ public class Othello extends JPanel {
 		            }
 		        }
 	            
-	            ////System.out.println("Returning .. ");
-	            return maxState;
+	            //System.out.println("Returning .. ");
+	            return getTheState(maxState);
 	        }
 	        else //this is my opponent's move, i have to minimize their move in this scope.
 	        {
@@ -381,7 +403,7 @@ public class Othello extends JPanel {
 	        		blackPossibilities(tempArray);
 	        	}
 
-	        	////System.out.println("Total Viable (MinState) : " + totalViable);.
+	        	//System.out.println("Total Viable (MinState) : " + totalViable);.
 	            State minState = new State(9999,9999,9999);
 	            for(int i=0;i<n;i++){
 					for(int j=0;j<n;j++){ 
@@ -389,35 +411,35 @@ public class Othello extends JPanel {
 		                //make that move on s yielding a state s'
 		                if(tempArray[i][j].getName() == "Viable"){
 			                if(aiColor == "Black"){
-			                	////System.out.println("Condition tempArray before : " + i + "," + j + " = " + tempArray[i][j].getName());
-			                	//////System.out.println("Condition buttonArray before : " + i + "," + j + " = " + buttonArray[i][j].getName());
+			                	//System.out.println("Condition tempArray before : " + i + "," + j + " = " + tempArray[i][j].getName());
+			                	////System.out.println("Condition buttonArray before : " + i + "," + j + " = " + buttonArray[i][j].getName());
 			                	tempArray[i][j].setName("White");
-			                	////System.out.println("Condition tempArray : " + i + "," + j + " = " + tempArray[i][j].getName());
-			                	//////System.out.println("Condition buttonArray : " + i + "," + j + " = " + buttonArray[i][j].getName());
+			                	//System.out.println("Condition tempArray : " + i + "," + j + " = " + tempArray[i][j].getName());
+			                	////System.out.println("Condition buttonArray : " + i + "," + j + " = " + buttonArray[i][j].getName());
 			                	turnColors(i,j,"Black","images/Black.png",tempArray);
 			                	//changeTurn(tempArray);
 			                	//checkWin(tempArray);
-			    				getState = search(tempArray,i,j,dep-1,aiColor,"Black"); //search(s', depth - 1)
+			    				getState = search(tempArray,i,j,getDepth(dep),aiColor,"Black"); //search(s', depth - 1)
 			    			}
 			    			else{
-			    				////System.out.println("Condition tempArray before : " + i + "," + j + " = " + tempArray[i][j].getName());
-			                	//////System.out.println("Condition buttonArray before : " + i + "," + j + " = " + buttonArray[i][j].getName());
+			    				//System.out.println("Condition tempArray before : " + i + "," + j + " = " + tempArray[i][j].getName());
+			                	////System.out.println("Condition buttonArray before : " + i + "," + j + " = " + buttonArray[i][j].getName());
 			    				tempArray[i][j].setName("Black");
-			    				////System.out.println("Condition tempArray : " + i + "," + j + " = " + tempArray[i][j].getName());
-			                	//////System.out.println("Condition buttonArray : " + i + "," + j + " = " + buttonArray[i][j].getName());
+			    				//System.out.println("Condition tempArray : " + i + "," + j + " = " + tempArray[i][j].getName());
+			                	////System.out.println("Condition buttonArray : " + i + "," + j + " = " + buttonArray[i][j].getName());
 			                	turnColors(i,j,"White","images/White.png",tempArray);
 			                	//changeTurn(tempArray);
 			                	//checkWin(tempArray);
-			    				getState = search(tempArray,i,j,dep-1,aiColor,"White");//search(s', depth - 1)
+			    				getState = search(tempArray,i,j,getDepth(dep),aiColor,"White");//search(s', depth - 1)
 			    			}
 
-			    			////System.out.println("MinState : " + minState.getValue() + " | GetState : " + getState.getValue());
+			    			//System.out.println("MinState : " + minState.getValue() + " | GetState : " + getState.getValue() + " | Depth : " + dep);
 			    			if(getState.getValue() < minState.getValue()){
-			    				minState.setValue(getState.getValue());
-			    				minState.setRow(getState.getRow());
-			    				minState.setCol(getState.getCol());
+			    				minState.setValue(getTheState(getState).getValue());
+								minState.setRow(i);
+								minState.setCol(j);
 			    			}
-			    			////System.out.println("Rolling back .. i : " + i + ", j : " + j);
+			    			//System.out.println("Rolling back .. i : " + i + ", j : " + j);
 			    			for(int x=0;x<n;x++) {
 								for(int y=0;y<n;y++){
 									tempArray[x][y] = new OthelloButton(x,y);
@@ -429,8 +451,8 @@ public class Othello extends JPanel {
 			    		}
 		            }
 		        }
-	            ////System.out.println("Returning .. ");
-	            return minState;
+	            //System.out.println("Returning .. ");
+	            return getTheState(minState);
 	        }
 	    }
 	}
@@ -478,7 +500,7 @@ public class Othello extends JPanel {
     }
 
 	private void turnColors(int x, int y, String color, String iconName, JButton[][] array) {
-		////System.out.println("Before Change : " + x + "," + y);
+		//System.out.println("Before Change : " + x + "," + y);
 		checkWhereToTurn(x,y,1,1,color,iconName,array); // southeast
 		checkWhereToTurn(x,y,1,-1,color,iconName,array); // southwest
 		checkWhereToTurn(x,y,-1,1,color,iconName,array); // northeast
@@ -507,9 +529,9 @@ public class Othello extends JPanel {
 			else{
 				if(array[row + changeRow][col + changeCol].getName() == color && viable){
 					done = true;
-					////System.out.println("Let's change!");
+					//System.out.println("Let's change!");
 					changeTheColor(x,y,xx,yy,row,col,color,iconName,array);
-					////System.out.println("Done changing.");
+					//System.out.println("Done changing.");
 				}
 				else if(array[row + changeRow][col + changeCol].getName() == "Viable") {
 					done = true;
@@ -521,7 +543,7 @@ public class Othello extends JPanel {
 					int asd = row + changeRow;
 					int dsa = col + changeCol;
 					viable = true;
-					////System.out.println("Where to change : " + asd + "," + dsa);
+					//System.out.println("Where to change : " + asd + "," + dsa);
 				}
 				else{
 					done = true;
@@ -537,9 +559,9 @@ public class Othello extends JPanel {
 		int col = currentCol;
 		int rowChange = xx * -1;
 		int colChange = yy * -1;
-		//////System.out.println("First Change : " + row + "," + col + " | x : " + x + ", y : " + y);
+		////System.out.println("First Change : " + row + "," + col + " | x : " + x + ", y : " + y);
 		while(row != x || col != y){
-			//////System.out.println("Change the : " + row + "," + col + " | x : " + x + ", y : " + y);
+			////System.out.println("Change the : " + row + "," + col + " | x : " + x + ", y : " + y);
 			array[row][col].setName(color);
 			array[row][col].setIcon(new ImageIcon(iconName));
 			row = row + rowChange;
@@ -563,12 +585,12 @@ public class Othello extends JPanel {
 			whitePossibilities(array);
 
 			if(computerColor == "White"){
-				////System.out.println("Computer's Turn");
+				//System.out.println("Computer's Turn");
 				State bestState;				
 				bestState = search(buttonArray, 0, 0, globalDepth, computerColor, turn);
 
 				//do the state
-				////System.out.println("Best Row, col :" + bestState.getRow() + "," + bestState.getCol());
+				//System.out.println("Best Row, col :" + bestState.getRow() + "," + bestState.getCol());
 				array[bestState.getRow()][bestState.getCol()].setName(computerColor);
 				lastRow = bestState.getRow();
 				lastCol = bestState.getCol();
@@ -585,7 +607,7 @@ public class Othello extends JPanel {
 			blackPossibilities(array);
 
 			if(computerColor == "Black"){
-				////System.out.println("Computer's Turn");
+				//System.out.println("Computer's Turn");
 				State bestState;
 				bestState = search(buttonArray, 0, 0, globalDepth, computerColor, turn);
 				//do the state
